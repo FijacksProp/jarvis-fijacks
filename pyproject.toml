@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "local-jarvis-assistant"
+version = "0.1.0"
+description = "Local-first Windows desktop AI assistant powered by Ollama."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "PySide6>=6.7",
+]
+
+[project.optional-dependencies]
+documents = [
+  "pypdf>=4.0",
+  "python-docx>=1.1",
+]
+dev = [
+  "pytest>=8.0",
+]
+
+[project.scripts]
+jarvis-app = "jarvis_app.app:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "--basetemp=runtime/pytest-temp -p no:cacheprovider"

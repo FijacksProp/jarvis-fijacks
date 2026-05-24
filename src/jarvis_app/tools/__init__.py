@@ -1,0 +1,2 @@
+"""Safe local automation tools."""
+
