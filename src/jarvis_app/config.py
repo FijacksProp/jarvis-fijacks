@@ -37,7 +37,7 @@ class AppConfig:
             config.save(config_path)
             return config
 
-        raw = json.loads(config_path.read_text(encoding="utf-8"))
+        raw = json.loads(config_path.read_text(encoding="utf-8-sig"))
         raw["favorite_apps"] = [FavoriteApp(**item) for item in raw.get("favorite_apps", [])]
         raw["favorite_folders"] = [
             FavoriteFolder(**item) for item in raw.get("favorite_folders", [])
@@ -52,4 +52,3 @@ class AppConfig:
             json.dumps(asdict(self), indent=2),
             encoding="utf-8",
         )
-

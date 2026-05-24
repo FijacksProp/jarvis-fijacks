@@ -113,10 +113,16 @@ Rules:
 
 Version 1:
 
-- Open apps
-- Open folders
+- Open output folder
 - Save notes/reports
 - Read selected files
+
+Current implemented controls:
+
+- Folder opening is limited to the configured output folder.
+- Saving a response writes markdown notes under the configured Jarvis output folder.
+- Attachments are read only after the user selects files from the Attach button.
+- Attached files are read-only context; V1 does not edit attached files.
 
 Version 2:
 
@@ -135,4 +141,3 @@ Version 5:
 
 - Plugin-style tools
 - User-created automations
-

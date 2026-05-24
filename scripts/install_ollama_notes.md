@@ -33,6 +33,12 @@ Detected winget package:
 Ollama.Ollama 0.24.0
 ```
 
+Installed first model:
+
+```text
+llama3.2:3b
+```
+
 Recommended first model:
 
 ```powershell

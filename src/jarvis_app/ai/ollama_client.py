@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass
 from typing import Iterable
-from urllib.error import URLError
+from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 
@@ -51,8 +51,13 @@ class OllamaClient:
         try:
             with urlopen(request, timeout=self.timeout_seconds) as response:
                 return json.loads(response.read().decode("utf-8"))
+        except HTTPError as exc:
+            detail = exc.read().decode("utf-8", errors="replace")
+            raise OllamaError(f"Ollama request failed: {url} ({exc.code}) {detail}") from exc
         except (OSError, URLError, json.JSONDecodeError) as exc:
-            raise OllamaError(f"Ollama request failed: {url}") from exc
+            raise OllamaError(
+                f"Ollama request failed: {url} ({type(exc).__name__}: {exc})"
+            ) from exc
 
     def _stream(self, method: str, path: str, body: dict) -> Iterable[dict]:
         url = self._url(path)
@@ -68,10 +73,17 @@ class OllamaClient:
                 for line in response:
                     if not line:
                         continue
-                    yield json.loads(line.decode("utf-8"))
+                    event = json.loads(line.decode("utf-8"))
+                    if "error" in event:
+                        raise OllamaError(f"Ollama stream error: {event['error']}")
+                    yield event
+        except HTTPError as exc:
+            detail = exc.read().decode("utf-8", errors="replace")
+            raise OllamaError(f"Ollama stream failed: {url} ({exc.code}) {detail}") from exc
         except (OSError, URLError, json.JSONDecodeError) as exc:
-            raise OllamaError(f"Ollama stream failed: {url}") from exc
+            raise OllamaError(
+                f"Ollama stream failed: {url} ({type(exc).__name__}: {exc})"
+            ) from exc
 
     def _url(self, path: str) -> str:
         return f"{self.base_url.rstrip('/')}/{path.lstrip('/')}"
-

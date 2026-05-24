@@ -6,14 +6,15 @@ Status key:
 - doing: in progress
 - done: completed
 - blocked: waiting on decision or dependency
+- removed: intentionally removed from current direction
 
 ## Version 0 - Foundation
 
 | Status | Task | Notes |
 | --- | --- | --- |
 | done | Confirm Python version | Python 3.14.3 is available; use 3.12/3.11 if dependencies fail |
-| blocked | Install or verify Ollama | Ollama CLI is not currently on PATH |
-| blocked | Choose first model | Depends on Ollama being installed |
+| done | Install or verify Ollama | Ollama is installed and local API is reachable |
+| done | Choose first model | `llama3.2:3b` installed and set as default |
 | done | Decide external drive storage path | `E:\Jarvis\OllamaModels` and `E:\Jarvis\JarvisData` configured |
 | done | Create initial app folder structure | Keep source, data, logs, and docs separate |
 | done | Create virtual environment | `.venv` exists with pip 25.3, PySide6, and pytest |
@@ -23,16 +24,16 @@ Status key:
 
 | Status | Task | Notes |
 | --- | --- | --- |
-| todo | Build PySide6 main window | Chat-first layout with actions sidebar |
-| todo | Build chat message components | User, assistant, system, tool messages |
-| todo | Implement Ollama client | Local HTTP requests and streaming |
-| todo | Implement model selector | Read available models from Ollama |
-| todo | Add SQLite database | Conversations, messages, settings, actions |
-| todo | Save and load chat history | Left sidebar history list |
-| todo | Add app launcher tool | Approved apps only |
-| todo | Add folder launcher tool | Approved folders only |
-| todo | Add file attachment support | Start with txt, md, py, js, json, html, css |
-| todo | Add save as note/report | Write into configured output folder |
+| done | Build PySide6 main window | Chat-first layout with actions sidebar |
+| done | Build chat message components | User, assistant, and system messages render in chat |
+| done | Implement Ollama client | Local HTTP requests and streaming |
+| done | Implement model selector | Reads available models from Ollama |
+| done | Add SQLite database | Conversations, messages, settings, actions schema exists |
+| done | Save and load chat history | Basic left sidebar history list and message persistence |
+| removed | Add app launcher tool | Removed from V1 direction; no favorites sidebar |
+| removed | Add folder launcher tool | Removed from V1 direction; output folder quick action remains |
+| done | Add file attachment support | Includes preview, remove selected, clear all, and quick file analysis prompts |
+| done | Add save as note/report | Save last assistant response as a markdown note |
 | todo | Add action confirmation UI | Required for write actions |
 | todo | Add basic settings screen | Ollama URL, model, paths, shortcuts |
 
@@ -40,8 +41,8 @@ Status key:
 
 | Status | Task | Notes |
 | --- | --- | --- |
-| todo | Add PDF text extraction | Use pypdf or PyMuPDF |
-| todo | Add DOCX text extraction | Use python-docx |
+| done | Add PDF text extraction | Uses pypdf for text-based PDFs; OCR is not included yet |
+| done | Add DOCX text extraction | Uses python-docx for paragraphs and table text |
 | todo | Add project workspace profiles | Name, root folder, notes, preferred model |
 | todo | Add folder search | Filename and content search |
 | todo | Add document chunking | Avoid feeding huge files directly to model |

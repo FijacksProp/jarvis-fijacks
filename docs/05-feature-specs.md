@@ -47,47 +47,6 @@ Acceptance:
 - Chats appear in the left sidebar.
 - Messages reload correctly after restart.
 
-## Feature: Favorite Apps
-
-Purpose:
-
-Open trusted apps from the assistant.
-
-Version:
-
-- V1
-
-Requirements:
-
-- User can add app name and executable path.
-- App appears in action sidebar.
-- Tool opens only configured apps.
-- Failed launch shows error.
-
-Acceptance:
-
-- User can open VS Code, browser, or other approved apps from the sidebar.
-
-## Feature: Favorite Folders
-
-Purpose:
-
-Open trusted folders from the assistant.
-
-Version:
-
-- V1
-
-Requirements:
-
-- User can add folder name and path.
-- Folder appears in action sidebar.
-- Tool validates folder exists before opening.
-
-Acceptance:
-
-- User can open school, projects, or documents folders from the sidebar.
-
 ## Feature: File Attachments
 
 Purpose:
@@ -96,12 +55,11 @@ Let user ask questions about selected files.
 
 Version:
 
-- V1 text/code files
-- V2 PDF/DOCX
+- V1 text/code/PDF/DOCX files
 
 Requirements:
 
-- Support selected file types.
+- Support selected text, code, PDF, and DOCX file types.
 - Limit file size in V1.
 - Display attached files.
 - Include extracted content in prompt context.
@@ -110,6 +68,19 @@ Requirements:
 Acceptance:
 
 - User can attach a Python or markdown file and ask for explanation.
+
+Current V1 behavior:
+
+- The Attach button beside the input opens a file picker.
+- Attached files appear in the right sidebar.
+- Attached files show type, size, and a readable preview.
+- Attached file text is bundled directly into the user prompt as explicit file context.
+- User can remove one selected attachment or clear all attachments.
+- Quick analysis buttons can summarize files, review code, or create study notes.
+- File-aware prompt instructions tell Jarvis to answer from attached files first and say when the answer is not present.
+- Supported file types include text, markdown, common code files, JSON, HTML, CSS, CSV, XML, YAML, TOML, INI, logs, PDF, and DOCX.
+- Text-based PDFs are supported; scanned/image PDFs need OCR, which is not in V1 yet.
+- PDF/DOCX attachments use a shorter excerpt than code/text files so the local 3B model can respond reliably on the target PC.
 
 ## Feature: Save Notes and Reports
 
@@ -131,6 +102,11 @@ Requirements:
 Acceptance:
 
 - User can save generated content and open it from recent outputs.
+
+Current V1 behavior:
+
+- User can save the last assistant response as a markdown note under the configured output folder.
+- The save action is logged back into the current chat as a system message.
 
 ## Feature: Workspace Profiles
 
@@ -193,4 +169,3 @@ Requirements:
 Acceptance:
 
 - Assistant can propose "open folder, search files, summarize matches" as separate visible steps.
-

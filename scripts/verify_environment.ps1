@@ -17,6 +17,8 @@ Write-Host "JARVIS_DATA_DIR=$jarvisData"
 Write-Host "`n== Tools =="
 if (Get-Command ollama -ErrorAction SilentlyContinue) {
     ollama --version
+} elseif (Test-Path "$env:LOCALAPPDATA\Programs\Ollama\ollama.exe") {
+    & "$env:LOCALAPPDATA\Programs\Ollama\ollama.exe" --version
 } else {
     Write-Host "ollama: not found"
 }
@@ -33,4 +35,3 @@ if ($jarvisData -and (Test-Path $jarvisData)) {
 } else {
     Write-Host "Jarvis data folder is missing or not configured."
 }
-

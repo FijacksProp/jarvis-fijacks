@@ -46,6 +46,12 @@ $env:PYTHONPATH="src"
 python -m jarvis_app
 ```
 
+On this machine, prefer the helper script so the external-drive data paths are loaded:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\start_jarvis.ps1
+```
+
 ## Development Rule
 
 The assistant should start useful and safe, then become more capable in layers. Version 1 should not try to do everything. It should provide a clean local chat experience, saved history, safe app/folder actions, and basic file reading first.
